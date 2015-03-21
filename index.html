@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body bgcolor="#00000">
+    <canvas id="tree" width="1000" height="1000"></canvas>
+    <script>
+      var canvas = document.getElementById('tree');
+      var context = canvas.getContext('2d');
+      branch(canvas.width / 2, canvas.height, 110, 90 % 360, 20, 10)
+      function branch(x, y, length, angle, minusangle, minuslength) {
+      	if (length <= 0) {
+      		return;
+      	}
+      	var dx2 = x + Math.cos(angle * (Math.PI / 180)) * length;
+      	var dy2 = y - Math.sin(angle * (Math.PI / 180)) * length;
+      	context.beginPath();
+      	context.moveTo(x, y);
+      	context.lineTo(dx2, dy2);
+      	if (length - minuslength <= 0) {
+      		context.strokeStyle = '#00FF00';
+      	} else {
+      		context.strokeStyle = '#FF8800';
+      	}
+      	context.stroke();
+      	branch(dx2, dy2, length - minuslength, (angle + minusangle) % 360, minusangle, minuslength);
+      	branch(dx2, dy2, length - minuslength, (angle - minusangle) % 360, minusangle, minuslength);
+      }
+    </script>
+  </body>
+</html>      
